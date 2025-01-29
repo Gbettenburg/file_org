@@ -34,6 +34,29 @@ Practicing your keyboard shortcuts. Try out the following as you work on this ex
 # Implementation
 
 ```{r}
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+```
 
+```{r}
+weather <- read.csv("../../data/raw/weather.csv")
+head(weather)
+```
+
+```{r}
+weather_clean <- weather %>% 
+  mutate(PrecipYr = na_if(PrecipYr, 99999))
+```
+
+```{r}
+weather_clean <- weather_clean %>% 
+  mutate(dateInYear = (yday(mdy(date)))) %>% 
+  arrange(desc(dateInYear))
+```
+
+```{r}
+wether_clean <- weather_clean %>% 
+  mutate(Monthab = month.abb[Month])
 ```
 
